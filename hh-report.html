@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="hh-report">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `hh-report`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class HhReport extends Polymer.Element {
+      static get is() { return 'hh-report'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'hh-report'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(HhReport.is, HhReport);
+  </script>
+</dom-module>
