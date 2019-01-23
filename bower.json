@@ -2,7 +2,11 @@
   "name": "hh-report",
   "main": "hh-report.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "vaadin-split-layout": "vaadin/vaadin-split-layout#^4.1.0",
+    "iron-autogrow-textarea": "2.2.0",
+    "paper-icon-button": "2.2.1",
+    "vaadin-icons": "vaadin/vaadin-icons#^4.2.1"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
@@ -11,5 +15,24 @@
   },
   "resolutions": {
     "polymer": "^2.0.0"
-  }
+  },
+  "homepage": "https://github.com/HealthHub-Project/hh-report",
+  "authors": [
+    "joohyukjung <joohyukjung@gmail.com>"
+  ],
+  "description": "",
+  "keywords": [
+    "healthhub",
+    "polymer",
+    "hh-report"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }

@@ -1,36 +1,211 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../vaadin-split-layout/vaadin-split-layout.html">
+<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../vaadin-icons/vaadin-icons.html">
 
 <dom-module id="hh-report">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
-  </template>
+    <template>
+        <style>
+            :host {
+                display: block;
+                /*background-color: #ccc;*/
+            }
 
-  <script>
-    /**
-     * `hh-report`
-     * 
-     *
-     * @customElement
-     * @polymer
-     * @demo demo/index.html
-     */
-    class HhReport extends Polymer.Element {
-      static get is() { return 'hh-report'; }
-      static get properties() {
-        return {
-          prop1: {
-            type: String,
-            value: 'hh-report'
-          }
-        };
-      }
-    }
+            .container {
+                display: flex;
+                flex-direction: column;
+                /*height: calc(100% - 10px);*/
+                /*width: calc(100% - 10px);*/
+                height: 100%;
+                width: 100%;
+                /*padding: 5px;*/
+            }
 
-    window.customElements.define(HhReport.is, HhReport);
-  </script>
+            .item {
+                width: 100%;
+            }
+
+            textarea {
+                height: calc(100% - 23px);
+                width: calc(100% - 20px);
+                background-color: rgba(0, 0, 0, 0.15); /* 투명 (opacity: 0) */
+                color: #aaa;
+                padding: 10px;
+                border: 0px;
+                resize: none;
+                outline: none !important;
+                font-size: 14px;
+            }
+
+            paper-icon-button {
+                color: #aaaaaa;
+            }
+
+            .icon-container {
+                height: 100%;
+                margin: 0px 0;
+                padding: 0 0px;
+                text-align: center;
+                /*width: 19.3%;*/
+                display: inline-block;
+                cursor: default;
+                vertical-align: top;
+                box-sizing: border-box;
+            }
+
+            .icon-container span {
+                font-family: sans-serif;
+                display: block;
+                /*margin-top: 0px;*/
+                color: #aaaaaa;
+                transition: all 600ms;
+            }
+
+            .icon-container .label-top {
+                font-size: 11px;
+            }
+
+            .icon-container .label-bottom {
+                font-size: 13px;
+            }
+
+            .label-reader {
+                font-family: sans-serif;
+                font-size: 14px;
+                color: #aaaaaa;
+                font-weight: bold;
+
+            }
+
+            .item-container {
+                height: 100%;
+            }
+
+
+        </style>
+        <div class="container">
+            <div class="item" style="height: 70px; display: flex; justify-content: space-evenly">
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:check-square-o"></paper-icon-button>
+                    <span class="label-top">Approve /Attest</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:external-link"></paper-icon-button>
+                    <span class="label-top">Preliminary</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:download"></paper-icon-button>
+                    <span class="label-top">Save</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:microphone"></paper-icon-button>
+                    <span class="label-top">Dictate</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:edit"></paper-icon-button>
+                    <span class="label-top">Edit</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:comment-ellipsis-o"></paper-icon-button>
+                    <span class="label-top">Consult to</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:ban"></paper-icon-button>
+                    <span class="label-top">Except</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:warning"></paper-icon-button>
+                    <span class="label-top">Mark CVR</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button icon="vaadin:cog"></paper-icon-button>
+                </div>
+            </div>
+            <div style="height: calc(100% - 130px);">
+                <vaadin-split-layout orientation="vertical" style="height: 100%;" theme="minimal">
+                    <div style="height: 33%; min-height: 70px; overflow: hidden">
+                        <div style="height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                            Findings
+                        </div>
+                        <div style="height: calc(100% - 30px);">
+                            <textarea></textarea>
+
+                        </div>
+                    </div>
+                    <vaadin-split-layout orientation="vertical" style="height: 67%; min-height: 140px" theme="minimal">
+                        <div style="height: 50%; min-height: 70px">
+                            <div style="height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                Conclusion
+                            </div>
+                            <div style="height: calc(100% - 30px);">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div style="height: 50%; min-height: 70px">
+                            <div style="height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                Recommendation
+                            </div>
+                            <div style="height: calc(100% - 30px);">
+                                <textarea></textarea>
+                            </div>
+
+                        </div>
+                    </vaadin-split-layout>
+                </vaadin-split-layout>
+            </div>
+            <div class="item" style="height: 60px; display: flex;">
+                <div class="item-container" style="width: calc(100% - 280px); display:flex; align-items: center; padding-left: 10px;">
+                    <span class="label-reader">Radiologist<br>{{radiologist}}</span>
+                </div>
+                <div class="item-container" style="width: 280px; display: flex; justify-content: space-evenly">
+                    <div class="icon-container">
+                        <paper-icon-button icon="vaadin:refresh"></paper-icon-button>
+                        <span class="label-bottom">Reset to unread</span>
+                    </div>
+                    <div class="icon-container">
+                        <paper-icon-button icon="vaadin:paste"></paper-icon-button>
+                        <span class="label-bottom">Paste just previous</span>
+                    </div>
+                    <div class="icon-container">
+                        <paper-icon-button icon="vaadin:trash"></paper-icon-button>
+                        <span class="label-bottom">clear</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </template>
+
+    <script>
+        /**
+         * `hh-report`
+         *
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class HhReport extends Polymer.Element {
+            static get is() {
+                return 'hh-report';
+            }
+
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'hh-report'
+                    },
+                    radiologist: {
+                        type: String,
+                        value: 'Hong Gildong'
+                    },
+                };
+            }
+        }
+
+        window.customElements.define(HhReport.is, HhReport);
+    </script>
 </dom-module>
