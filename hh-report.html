@@ -1,8 +1,9 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../vaadin-split-layout/vaadin-split-layout.html">
-<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../vaadin-icons/vaadin-icons.html">
+<link rel="import" href="../hh-icons/hh-icons.html">
+
 
 <dom-module id="hh-report">
     <template>
@@ -32,16 +33,29 @@
                 height: calc(100% - 23px);
                 width: calc(100% - 20px);
                 background-color: rgba(0, 0, 0, 0.10); /* 투명 (opacity: 0) */
-                color: #aaa;
+                color: #aaaaaa;
                 padding: 10px;
                 border: 0px;
                 resize: none;
                 outline: none !important;
-                font-size: 14px;
+                font-size: 15px;
+                line-height:1.5em;
+            }
+
+            textarea::placeholder {
+                color: #cccccc;
             }
 
             paper-icon-button {
-                color: #aaaaaa;
+                --paper-icon-button: {
+                    color: #aaaaaa;
+                };
+                --paper-icon-button-hover: {
+                    color: #0087cb;
+                };
+                --paper-icon-button-disabled: {
+                    color: #4C5667;
+                };
             }
 
             .icon-container {
@@ -82,45 +96,43 @@
             .item-container {
                 height: 100%;
             }
-
-
         </style>
         <div class="container">
             <div class="item" style="height: 65px; display: flex; justify-content: space-evenly; align-items: center">
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:check-square-o"></paper-icon-button>
+                    <paper-icon-button id="approve" icon="vaadin:check-square-o" on-click="handleClick"></paper-icon-button>
                     <span class="label-top">Approve/Attest</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:download"></paper-icon-button>
+                    <paper-icon-button id="save" icon="vaadin:download" on-click="handleClick"></paper-icon-button>
                     <span class="label-top">Save</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:external-link"></paper-icon-button>
+                    <paper-icon-button id="preliminary" icon="vaadin:external-link" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Preliminary</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:microphone"></paper-icon-button>
+                    <paper-icon-button id="dictate" icon="vaadin:microphone" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Dictate</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:edit"></paper-icon-button>
+                    <paper-icon-button id="edit" icon="vaadin:edit" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Edit</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:comment-ellipsis-o"></paper-icon-button>
+                    <paper-icon-button id="consultTo" icon="vaadin:comment-ellipsis-o" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Consult to</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:ban"></paper-icon-button>
+                    <paper-icon-button id="except" icon="vaadin:ban" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Except</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:warning"></paper-icon-button>
+                    <paper-icon-button id="markCVR" icon="vaadin:warning" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Mark CVR</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:cog"></paper-icon-button>
+                    <paper-icon-button id="config" icon="vaadin:cog" on-click="handleClick"></paper-icon-button>
                 </div>
             </div>
             <div style="height: calc(100% - 130px);">
@@ -130,7 +142,8 @@
                             Findings
                         </div>
                         <div style="height: calc(100% - 32px);">
-                            <textarea></textarea>
+                            <textarea value="{{opinion.findings}}" placeholder="findings">
+                            </textarea>
 
                         </div>
                     </div>
@@ -140,7 +153,8 @@
                                 Conclusion
                             </div>
                             <div style="height: calc(100% - 32px);">
-                                <textarea></textarea>
+                                <textarea value="{{opinion.conclusion}}" placeholder="conclusion">
+                                </textarea>
                             </div>
                         </div>
                         <div style="height: 50%; min-height: 72px">
@@ -148,7 +162,8 @@
                                 Recommendation
                             </div>
                             <div style="height: calc(100% - 32px);">
-                                <textarea></textarea>
+                                <textarea value="{{opinion.recommendation}}" placeholder="recommendation">
+                                </textarea>
                             </div>
 
                         </div>
@@ -156,21 +171,29 @@
                 </vaadin-split-layout>
             </div>
             <div class="item" style="height: 65px; display: flex;">
-                <div class="item-container" style="width: calc(100% - 280px); display:flex; align-items: center; padding-left: 10px;">
+                <div class="item-container" style="width: calc(100% - 340px); display:flex; align-items: center; padding-left: 10px;">
                     <span class="label-reader">Radiologist<br>{{radiologist}}</span>
                 </div>
-                <div class="item-container" style="width: 280px; display: flex; justify-content: space-evenly;">
+                <div class="item-container" style="width: 340px; display: flex; justify-content: space-evenly;">
                     <div class="icon-container">
-                        <paper-icon-button icon="vaadin:refresh"></paper-icon-button>
+                        <paper-icon-button id="resetToUnread" icon="vaadin:refresh" on-click="handleClick" disabled></paper-icon-button>
                         <span class="label-bottom">Reset to unread</span>
                     </div>
                     <div class="icon-container">
-                        <paper-icon-button icon="vaadin:paste"></paper-icon-button>
+                        <paper-icon-button id="pasteJustPrevious" icon="vaadin:paste" on-click="handleClick" disabled></paper-icon-button>
                         <span class="label-bottom">Paste just previous</span>
                     </div>
                     <div class="icon-container">
-                        <paper-icon-button icon="vaadin:trash"></paper-icon-button>
-                        <span class="label-bottom">clear</span>
+                        <paper-icon-button id="clear" icon="vaadin:trash" on-click="handleClick"></paper-icon-button>
+                        <span class="label-bottom">Clear</span>
+                    </div>
+                    <div class="icon-container">
+                        <paper-icon-button id="prev" icon="healthhub:display-prev" on-click="handleClick"></paper-icon-button>
+                        <span class="label-bottom">Prev</span>
+                    </div>
+                    <div class="icon-container">
+                        <paper-icon-button id="next" icon="healthhub:display-next" on-click="handleClick"></paper-icon-button>
+                        <span class="label-bottom">Next</span>
                     </div>
                 </div>
 
@@ -193,6 +216,13 @@
                 return 'hh-report';
             }
 
+            ready() {
+                super.ready();
+                if(!this.opinion) {
+                    this.opinion = null;
+                }
+            }
+
             static get properties() {
                 return {
                     prop1: {
@@ -203,7 +233,15 @@
                         type: String,
                         value: 'Hong Gildong'
                     },
+                    opinion: {
+                        type: Object
+                    }
                 };
+            }
+
+            handleClick(e) {
+                let id = e.target.id;
+                this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
             }
         }
 
