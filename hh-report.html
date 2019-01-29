@@ -142,7 +142,7 @@
                             Findings
                         </div>
                         <div style="height: calc(100% - 32px);">
-                            <textarea value="{{opinion.findings}}" placeholder="findings">
+                            <textarea value="{{findings::input}}" placeholder="findings">
                             </textarea>
 
                         </div>
@@ -153,7 +153,7 @@
                                 Conclusion
                             </div>
                             <div style="height: calc(100% - 32px);">
-                                <textarea value="{{opinion.conclusion}}" placeholder="conclusion">
+                                <textarea value="{{conclusion::input}}" placeholder="conclusion">
                                 </textarea>
                             </div>
                         </div>
@@ -162,7 +162,7 @@
                                 Recommendation
                             </div>
                             <div style="height: calc(100% - 32px);">
-                                <textarea value="{{opinion.recommendation}}" placeholder="recommendation">
+                                <textarea value="{{recommendation::input}}" placeholder="recommendation">
                                 </textarea>
                             </div>
 
@@ -184,7 +184,7 @@
                         <span class="label-bottom">Paste just previous</span>
                     </div>
                     <div class="icon-container">
-                        <paper-icon-button id="clear" icon="vaadin:trash" on-click="handleClick"></paper-icon-button>
+                        <paper-icon-button id="clear" icon="vaadin:trash" on-click="clear"></paper-icon-button>
                         <span class="label-bottom">Clear</span>
                     </div>
                     <div class="icon-container">
@@ -218,9 +218,6 @@
 
             ready() {
                 super.ready();
-                if(!this.opinion) {
-                    this.opinion = null;
-                }
             }
 
             static get properties() {
@@ -233,15 +230,35 @@
                         type: String,
                         value: 'Hong Gildong'
                     },
-                    opinion: {
-                        type: Object
+                    findings: {
+                        type: String,
+                        value: "sdfsdf"
+                    },
+                    conclusion: {
+                        type: String,
+                        value: ""
+                    },
+                    recommendation: {
+                        type: String,
+                        value: ""
                     }
+
                 };
             }
 
             handleClick(e) {
                 let id = e.target.id;
                 this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
+            }
+
+            clear() {
+                this.initTextArea();
+            }
+
+            initTextArea() {
+                this.findings = "";
+                this.conclusion = "";
+                this.recommendation = "";
             }
         }
 
