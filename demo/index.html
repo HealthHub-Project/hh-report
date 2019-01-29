@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
@@ -13,24 +13,29 @@
     <link rel="import" href="../hh-report.html">
 
     <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
+        <style is="custom-style" include="demo-pages-shared-styles">
+        </style>
     </custom-style>
-  </head>
-  <body>
-    <div class="vertical-section-container centered">
-      <h3>Basic hh-report demo</h3>
-      <demo-snippet>
+</head>
+<body>
+<div class="vertical-section-container centered">
+    <h3>Basic hh-report demo</h3>
+    <demo-snippet>
         <template>
-          <style>
-            hh-report {
-              height: 700px;
-              width: 450px;
-            }
-          </style>
-          <hh-report></hh-report>
+            <style>
+                hh-report {
+                    height: 700px;
+                    width: 450px;
+                }
+            </style>
+            <hh-report id="report"></hh-report>
+            <script>
+                report.addEventListener('btnClickEvent', function (e) {
+                    console.log(e.detail)
+                })
+            </script>
         </template>
-      </demo-snippet>
-    </div>
-  </body>
+    </demo-snippet>
+</div>
+</body>
 </html>
