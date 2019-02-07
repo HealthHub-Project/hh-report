@@ -7,7 +7,10 @@
     "paper-icon-button": "2.2.1",
     "vaadin-icons": "vaadin/vaadin-icons#^4.2.1",
     "hh-icons": "*",
-    "paper-dialog": "2.1.1"
+    "paper-dialog": "2.1.1",
+    "paper-checkbox": "2.0.4",
+    "ag-grid-enterprise": "17.1.1",
+    "ag-grid-polymer": "17.1.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

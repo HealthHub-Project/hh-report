@@ -3,11 +3,16 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../vaadin-icons/vaadin-icons.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../hh-icons/hh-icons.html">
-
+<script src="../ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
+<link rel="import" href="../ag-grid-polymer/ag-grid-polymer.html">
+<script src="licenseKey.js"></script>
 
 <dom-module id="hh-report">
     <template>
+        <link rel="stylesheet" href="../bower_components/ag-grid/dist/styles/ag-grid.css">
+        <link rel="stylesheet" href="../bower_components/ag-grid/dist/styles/ag-theme-balham-dark.css">
         <style>
             :host {
                 display: block;
@@ -40,7 +45,7 @@
                 resize: none;
                 outline: none !important;
                 font-size: 15px;
-                line-height:1.5em;
+                line-height: 1.5em;
             }
 
             textarea::placeholder {
@@ -99,8 +104,57 @@
             }
 
             paper-dialog {
-                width: 700px;
-                hegith: 500px;
+                width: 620px;
+                hegith: 520px;
+            }
+
+            paper-checkbox {
+                --paper-checkbox-label: {
+                    font-size: 14px;
+                    color: #aaaaaa;
+
+                };
+                --paper-checkbox-label-checked: {
+                    font-size: 14px;
+                    color: #aaaaaa;
+                    font-weight: bold;
+                };
+                --paper-checkbox-unchecked-color: #aaaaaa;
+                --paper-checkbox-checked-color: #0087cb;
+            }
+
+            ag-grid-polymer {
+                width: 100%;
+                height: 100%;
+                color: #aaaaaa !important;
+                font-size: 12px !important;
+                font-weight: normal !important;
+                background-color: #2d333f !important;
+                font-family: "NotoSansCJKLight" !important;
+            }
+
+            .ag-header {
+                background-color: #2d333f !important;
+                color: #cccccc !important;
+                border-bottom: 3px solid #0087cb !important;
+                font-weight: bold !important;
+                font-size: 12px !important;
+            }
+
+            .ag-row {
+                border-bottom: 1px solid #414a59 !important;
+            }
+
+            .ag-row-even {
+                background-color: rgba(76, 86, 103, 0.2) !important;
+            }
+
+            .ag-row-odd {
+                background-color: #2d333f !important;
+            }
+
+            .ag-cell-focus {
+                border: 1px solid darkgrey !important;
             }
         </style>
         <div class="container">
@@ -211,7 +265,26 @@
                 <div style="width: calc(100% - 10px);height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
                     Report Configuration
                 </div>
-                <div style="width: 100%; height: 470px;">
+                <div style="display:flex; flex-direction: column; width: 560px; height: 430px; padding: 30px">
+                    <div style=" display: flex; flex-direction:column; justify-content:space-between; width: 100%; height: 150px;">
+                        <paper-checkbox disabled noink>Insert clinical info</paper-checkbox>
+                        <paper-checkbox disabled noink>Insert study info</paper-checkbox>
+                        <paper-checkbox noink>Auto save report</paper-checkbox>
+                        <paper-checkbox noink>on-click expand report window (Report window click when, report window expand)</paper-checkbox>
+                        <paper-checkbox disabled noink>Select phrase and alt+F1 (Google search)</paper-checkbox>
+                    </div>
+                    <div style="width: 100%; height: 29px; margin-top: 30px; border-top: 1px solid #aaaaaa">
+
+                    </div>
+                    <div style="background-color: yellow; width: 100%; height: 260px">
+                        <ag-grid-polymer class="ag-theme-balham-dark"
+                                         gridOptions="{{gridOptions}}"
+                                         rowData="{{rowData}}"
+                                         columnDefs="{{columnDefs}}">
+                        </ag-grid-polymer>
+                    </div>
+                    <!--<paper-checkbox>Checkbox</paper-checkbox>-->
+                    <!--<paper-checkbox>Checkbox</paper-checkbox>-->
 
                 </div>
             </div>
@@ -263,6 +336,31 @@
                 };
             }
 
+            constructor() {
+                super();
+
+                this.gridOptions = {
+                    defaultColDef: {
+                        suppressMenu: true // 메뉴 막기
+                    },
+                    enableColResize: true,
+                    toolPanelSuppressSideButtons: true,
+                    suppressMenu: true,
+                    suppressContextMenu: true
+                };
+
+                this.columnDefs = [
+                    {headerName: "Role", field: "role", width: 150},
+                    {headerName: "Department", field: "department", width: 120},
+                    {headerName: "ID", field: "id", width: 70},
+                    {headerName: "Name", field: "name", width: 100},
+                    {headerName: "Position", field: "position"}
+                ];
+                this.rowData = [
+                    {role: "1st reporting doctor", department: "Neuroradiology", id: "5678", name: "나동규", position: "resident"},
+                ];
+            }
+
             handleClick(e) {
                 let id = e.target.id;
                 this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
@@ -271,9 +369,11 @@
             clear() {
                 this.initTextArea();
             }
+
             openDialog() {
                 this.$.modal.open();
             }
+
             initTextArea() {
                 this.findings = "";
                 this.conclusion = "";
