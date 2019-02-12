@@ -4,6 +4,7 @@
 <link rel="import" href="../vaadin-icons/vaadin-icons.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../hh-icons/hh-icons.html">
 <script src="../ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
 <link rel="import" href="../ag-grid-polymer/ag-grid-polymer.html">
@@ -103,12 +104,12 @@
                 height: 100%;
             }
 
-            paper-dialog {
+            .configModal {
                 width: 620px;
-                hegith: 520px;
+                hegith: 570px;
             }
 
-            paper-checkbox {
+            .configModal paper-checkbox {
                 --paper-checkbox-label: {
                     font-size: 14px;
                     color: #aaaaaa;
@@ -123,9 +124,13 @@
                 --paper-checkbox-checked-color: #0087cb;
             }
 
+            .addDoctorModal {
+                width: 420px;
+                hegith: 340px;
+            }
+
             ag-grid-polymer {
                 width: 100%;
-                height: 100%;
                 color: #aaaaaa !important;
                 font-size: 12px !important;
                 font-weight: normal !important;
@@ -156,6 +161,29 @@
             .ag-cell-focus {
                 border: 1px solid darkgrey !important;
             }
+
+            .modalBottomContainer {
+                display:flex;
+                /*width: 595px;*/
+                width: calc(100% - 25px);
+                height: 75px;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            .modalBottomContainer paper-button {
+                height: 30px;
+                color: #ffffff;
+                background-color: #aaaaaa;
+                font-size: 13px;
+                margin: 0 5px 0 5px;
+            }
+
+            .modalBottomContainer paper-button:hover {
+                background-color: #0087cb;
+            }
+
+
         </style>
         <div class="container">
             <div class="item" style="height: 65px; display: flex; justify-content: space-evenly; align-items: center">
@@ -260,12 +288,15 @@
             </div>
         </div>
 
-        <paper-dialog id="modal">
+        <paper-dialog id="configModal" class="configModal" modal>
             <div style="background-color: #2d333f; display: flex; flex-direction: column; width: 100%; height: 100%; padding: 0px; margin:0px;">
-                <div style="width: calc(100% - 10px);height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
-                    Report Configuration
+                <div style="width: calc(100% - 20px);height: 30px; display:flex; align-items: center; padding-left: 10px; padding-right:10px; justify-content: space-between; background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                    <div>
+                        Report Configuration
+                    </div>
+                    <paper-icon-button icon="vaadin:close-circle" style="padding: 0px; width: 14px; height: 14px;" on-tap="closeConfigModal"></paper-icon-button>
                 </div>
-                <div style="display:flex; flex-direction: column; width: 560px; height: 430px; padding: 30px">
+                <div style="display:flex; flex-direction: column; width: 560px; height: 430px; padding: 30px 30px 5px 30px;">
                     <div style=" display: flex; flex-direction:column; justify-content:space-between; width: 100%; height: 150px;">
                         <paper-checkbox disabled noink>Insert clinical info</paper-checkbox>
                         <paper-checkbox disabled noink>Insert study info</paper-checkbox>
@@ -274,18 +305,52 @@
                         <paper-checkbox disabled noink>Select phrase and alt+F1 (Google search)</paper-checkbox>
                     </div>
                     <div style="width: 100%; height: 29px; margin-top: 30px; border-top: 1px solid #aaaaaa">
-
                     </div>
-                    <div style="background-color: yellow; width: 100%; height: 260px">
+                    <div style="width: 100%; height: 260px">
+                        <div style="width: 100%; height: 30px; color: #cccccc; font-size: 14px;">
+                            Radiologist setting
+                            <paper-icon-button on-tap="openRadiologistDialog" icon="vaadin:plus-circle" style="padding: 0; height: 14px; width: 22px;"></paper-icon-button>
+                        </div>
                         <ag-grid-polymer class="ag-theme-balham-dark"
-                                         gridOptions="{{gridOptions}}"
-                                         rowData="{{rowData}}"
-                                         columnDefs="{{columnDefs}}">
+                                         gridOptions="{{tGridOptions}}"
+                                         rowData="{{tRowData}}"
+                                         columnDefs="{{tColumnDefs}}" style="height: 230px;">
                         </ag-grid-polymer>
                     </div>
-                    <!--<paper-checkbox>Checkbox</paper-checkbox>-->
-                    <!--<paper-checkbox>Checkbox</paper-checkbox>-->
+                </div>
+                <div class="modalBottomContainer">
+                    <paper-button raised>Save</paper-button>
+                    <paper-button on-tap="closeConfigModal" raised >Close</paper-button>
+                    <paper-button raised disabled>Reset to default</paper-button>
+                </div>
 
+            </div>
+        </paper-dialog>
+
+        <paper-dialog id="addDoctorModal" class="addDoctorModal">
+            <div style="background-color: #2d333f; display: flex; flex-direction: column; width: 100%; height: 100%; padding: 0px; margin:0px;">
+                <div style="width: calc(100% - 20px);height: 30px; display:flex; align-items: center; padding-left: 10px; padding-right:10px; justify-content: space-between; background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                    <div>
+                        Add reporting doctor
+                    </div>
+                    <paper-icon-button icon="vaadin:close-circle" style="padding: 0px; width: 14px; height: 14px;" on-tap="closeAddDoctorModal"></paper-icon-button>
+                </div>
+                <div style="display:flex; flex-direction: column; width: 360px; height: 200px; padding: 30px 30px 5px 30px;">
+                    <div style="background-color: red; width: 100%; height: 30px;">
+                        <iron-icon icon="healthhub:display-next"></iron-icon>
+                    </div>
+                    <div style="background-color: blue; width: 100%; height: 170px;"></div>
+                    <!--<div style="width: 100%; height: 100%">-->
+                        <!--<ag-grid-polymer class="ag-theme-balham-dark"-->
+                                         <!--gridOptions="{{sGridOptions}}"-->
+                                         <!--rowData="{{sRowData}}"-->
+                                         <!--columnDefs="{{sColumnDefs}}" style="height: 130px;">-->
+                        <!--</ag-grid-polymer>-->
+                    <!--</div>-->
+                </div>
+                <div class="modalBottomContainer">
+                    <paper-button raised>Ok</paper-button>
+                    <paper-button on-tap="closeAddDoctorModal" raised >Close</paper-button>
                 </div>
             </div>
         </paper-dialog>
@@ -332,14 +397,13 @@
                         type: String,
                         value: ""
                     }
-
                 };
             }
 
             constructor() {
                 super();
 
-                this.gridOptions = {
+                this.tGridOptions = {
                     defaultColDef: {
                         suppressMenu: true // 메뉴 막기
                     },
@@ -349,15 +413,36 @@
                     suppressContextMenu: true
                 };
 
-                this.columnDefs = [
+                this.tColumnDefs = [
                     {headerName: "Role", field: "role", width: 150},
                     {headerName: "Department", field: "department", width: 120},
                     {headerName: "ID", field: "id", width: 70},
                     {headerName: "Name", field: "name", width: 100},
-                    {headerName: "Position", field: "position"}
+                    {headerName: "Position", field: "position", width: 117}
                 ];
-                this.rowData = [
-                    {role: "1st reporting doctor", department: "Neuroradiology", id: "5678", name: "나동규", position: "resident"},
+                this.tRowData = [
+                    // {role: "1st reporting doctor", department: "Neuroradiology", id: "5678", name: "나동규", position: "resident"},
+                ];
+
+
+                this.sGridOptions = {
+                    defaultColDef: {
+                        suppressMenu: true // 메뉴 막기
+                    },
+                    enableColResize: true,
+                    toolPanelSuppressSideButtons: true,
+                    suppressMenu: true,
+                    suppressContextMenu: true
+                };
+
+                this.sColumnDefs = [
+                    {headerName: "Department", field: "department", width: 120},
+                    {headerName: "ID", field: "id", width: 70},
+                    {headerName: "Name", field: "name", width: 100},
+                    {headerName: "Position", field: "position", width: 117}
+                ];
+                this.sRowData = [
+                    {department: "Neuroradiology", id: "5678", name: "나동규", position: "resident"},
                 ];
             }
 
@@ -371,13 +456,29 @@
             }
 
             openDialog() {
-                this.$.modal.open();
+                this.$.configModal.open();
+            }
+
+            openRadiologistDialog() {
+                this.$.addDoctorModal.open();
+            }
+
+            closeConfigModal() {
+                this.$.configModal.close();
+            }
+
+            closeAddDoctorModal() {
+                this.$.addDoctorModal.close();
             }
 
             initTextArea() {
                 this.findings = "";
                 this.conclusion = "";
                 this.recommendation = "";
+            }
+
+            setRadiologist(rowData) {
+                this.tRowData = rowData;
             }
         }
 
