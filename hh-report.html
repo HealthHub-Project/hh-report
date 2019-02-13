@@ -322,8 +322,8 @@
                     <div style=" display: flex; flex-direction:column; justify-content:space-between; width: 100%; height: 150px;">
                         <paper-checkbox disabled noink>Insert clinical info</paper-checkbox>
                         <paper-checkbox disabled noink>Insert study info</paper-checkbox>
-                        <paper-checkbox noink>Auto save report</paper-checkbox>
-                        <paper-checkbox noink>on-click expand report window (Report window click when, report window expand)</paper-checkbox>
+                        <paper-checkbox disabled noink>Auto save report</paper-checkbox>
+                        <paper-checkbox disabled noink>on-click expand report window (Report window click when, report window expand)</paper-checkbox>
                         <paper-checkbox disabled noink>Select phrase and alt+F1 (Google search)</paper-checkbox>
                     </div>
                     <div style="width: 100%; height: 29px; margin-top: 30px; border-top: 1px solid #aaaaaa">
@@ -341,7 +341,7 @@
                     </div>
                 </div>
                 <div class="modalBottomContainer">
-                    <paper-button id="" on-tap="saveRadiologist" raised>Save</paper-button>
+                    <paper-button id="" on-tap="handleClick" raised>Save</paper-button>
                     <paper-button on-tap="closeConfigModal" raised>Close</paper-button>
                     <paper-button on-tap="resetRadiologist" raised>Reset to default</paper-button>
                 </div>
@@ -515,7 +515,7 @@
                 this.tRowData = rows;
             }
 
-            setRadiologistList(rows) {
+            setDoctorList(rows) {
                 this.sRowData = rows;
             }
 
@@ -528,18 +528,21 @@
                 this.selectedRow(row);
             }
 
-            selectedRow(row) {
-                if(row) {
+            selectedRow(selectedRow) {
+                if(selectedRow) {
                     let radiologistList = new Array();
-                    radiologistList.push(row);
+                    radiologistList.push(selectedRow);
                     this.tRowData = radiologistList;
                     this.$.addDoctorModal.close();
                 }
             }
 
-            saveRadiologist() {
-                let row = this.sGridOptions.api.getSelectedRows()[0];
-                this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
+            getRadiologist() {
+                let radiologistList = new Array();
+                this.tGridOptions.api.forEachNode((rowNode) => {;
+                    radiologistList.push(rowNode.data)
+                });
+                return radiologistList;
             }
 
             resetRadiologist() {
