@@ -5,6 +5,7 @@
 <link rel="import" href="../paper-dialog/paper-dialog.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../hh-icons/hh-icons.html">
 <script src="../ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
 <link rel="import" href="../ag-grid-polymer/ag-grid-polymer.html">
@@ -126,7 +127,7 @@
 
             .addDoctorModal {
                 width: 420px;
-                hegith: 340px;
+                hegith: 365px;
             }
 
             ag-grid-polymer {
@@ -181,6 +182,27 @@
 
             .modalBottomContainer paper-button:hover {
                 background-color: #0087cb;
+            }
+
+            paper-input {
+                --paper-input-container-input-color: #fff;
+                --paper-input-container-focus-color: #0087cb;
+                --paper-input-container-label: {
+                    font-size: 14px;
+                };
+                width: 150px;
+            }
+
+            iron-icon, div[suffix] {
+                color: hsl(0, 0%, 50%);
+                margin-right: 12px;
+                width: 14px;
+                height: 14px;
+            }
+
+            .ag-row-selected {
+                background-color: #596072 !important;
+                color: #fff !important;
             }
 
 
@@ -319,9 +341,9 @@
                     </div>
                 </div>
                 <div class="modalBottomContainer">
-                    <paper-button raised>Save</paper-button>
-                    <paper-button on-tap="closeConfigModal" raised >Close</paper-button>
-                    <paper-button raised disabled>Reset to default</paper-button>
+                    <paper-button id="" on-tap="saveRadiologist" raised>Save</paper-button>
+                    <paper-button on-tap="closeConfigModal" raised>Close</paper-button>
+                    <paper-button on-tap="resetRadiologist" raised>Reset to default</paper-button>
                 </div>
 
             </div>
@@ -335,21 +357,23 @@
                     </div>
                     <paper-icon-button icon="vaadin:close-circle" style="padding: 0px; width: 14px; height: 14px;" on-tap="closeAddDoctorModal"></paper-icon-button>
                 </div>
-                <div style="display:flex; flex-direction: column; width: 360px; height: 200px; padding: 30px 30px 5px 30px;">
-                    <div style="background-color: red; width: 100%; height: 30px;">
-                        <iron-icon icon="healthhub:display-next"></iron-icon>
+                <div style="display:flex; flex-direction: column; width: 360px; height: 255px; padding: 0px 30px 5px 30px;">
+                    <div style="width: 100%; height: 80px; display: flex; align-items: center">
+                        <paper-input id="filterInput" label="name" on-input="onFilterTextBoxChanged">
+                            <iron-icon icon="vaadin:search" slot="prefix"></iron-icon>
+                        </paper-input>
                     </div>
-                    <div style="background-color: blue; width: 100%; height: 170px;"></div>
-                    <!--<div style="width: 100%; height: 100%">-->
-                        <!--<ag-grid-polymer class="ag-theme-balham-dark"-->
-                                         <!--gridOptions="{{sGridOptions}}"-->
-                                         <!--rowData="{{sRowData}}"-->
-                                         <!--columnDefs="{{sColumnDefs}}" style="height: 130px;">-->
-                        <!--</ag-grid-polymer>-->
-                    <!--</div>-->
+                    <!--<div style="background-color: blue; width: 100%; height: 180px;"></div>-->
+                    <div style="width: 100%; height: 170px">
+                        <ag-grid-polymer class="ag-theme-balham-dark"
+                                         gridOptions="{{sGridOptions}}"
+                                         rowData="{{sRowData}}"
+                                         columnDefs="{{sColumnDefs}}" style="height: 180px;">
+                        </ag-grid-polymer>
+                    </div>
                 </div>
                 <div class="modalBottomContainer">
-                    <paper-button raised>Ok</paper-button>
+                    <paper-button on-tap="addDoctor" raised>Ok</paper-button>
                     <paper-button on-tap="closeAddDoctorModal" raised >Close</paper-button>
                 </div>
             </div>
@@ -420,15 +444,15 @@
                     {headerName: "Name", field: "name", width: 100},
                     {headerName: "Position", field: "position", width: 117}
                 ];
-                this.tRowData = [
-                    // {role: "1st reporting doctor", department: "Neuroradiology", id: "5678", name: "나동규", position: "resident"},
-                ];
+
+                this.tRowData = [];
 
 
                 this.sGridOptions = {
                     defaultColDef: {
                         suppressMenu: true // 메뉴 막기
                     },
+                    rowSelection: 'single',
                     enableColResize: true,
                     toolPanelSuppressSideButtons: true,
                     suppressMenu: true,
@@ -437,13 +461,23 @@
 
                 this.sColumnDefs = [
                     {headerName: "Department", field: "department", width: 120},
-                    {headerName: "ID", field: "id", width: 70},
-                    {headerName: "Name", field: "name", width: 100},
-                    {headerName: "Position", field: "position", width: 117}
+                    {headerName: "LicenseNo", field: "licenseNo", width: 110},
+                    {headerName: "Name", field: "name", width: 80},
+                    {headerName: "Position", field: "position", width: 110}
                 ];
                 this.sRowData = [
-                    {department: "Neuroradiology", id: "5678", name: "나동규", position: "resident"},
+                    {id: "1234", department: "Neuroradiology", licenseNo: "5678", name: "나동규", position: "resident"},
+                    {id: "2342", department: "Neuroradiology", licenseNo: "5677", name: "김성현", position: "resident"},
+                    {id: "3253", department: "Neuroradiology", licenseNo: "5674", name: "이재희", position: "resident"},
+                    {id: "4231", department: "Neuroradiology", licenseNo: "5671", name: "정주혁", position: "resident"},
+                    {id: "2342", department: "Neuroradiology", licenseNo: "5278", name: "장보현", position: "resident"},
+                    {id: "2341", department: "Neuroradiology", licenseNo: "4231", name: "김민정", position: "resident"},
+                    {id: "3423", department: "Neuroradiology", licenseNo: "1234", name: "이성현", position: "resident"},
                 ];
+
+                this.sGridOptions.onRowDoubleClicked = (e) => {
+                    this.selectedRow(e.data);
+                };
             }
 
             handleClick(e) {
@@ -477,8 +511,39 @@
                 this.recommendation = "";
             }
 
-            setRadiologist(rowData) {
-                this.tRowData = rowData;
+            setRadiologist(rows) {
+                this.tRowData = rows;
+            }
+
+            setRadiologistList(rows) {
+                this.sRowData = rows;
+            }
+
+            onFilterTextBoxChanged() {
+                this.sGridOptions.api.setQuickFilter(this.$.filterInput.value);
+            }
+
+            addDoctor() {
+                let row = this.sGridOptions.api.getSelectedRows()[0];
+                this.selectedRow(row);
+            }
+
+            selectedRow(row) {
+                if(row) {
+                    let radiologistList = new Array();
+                    radiologistList.push(row);
+                    this.tRowData = radiologistList;
+                    this.$.addDoctorModal.close();
+                }
+            }
+
+            saveRadiologist() {
+                let row = this.sGridOptions.api.getSelectedRows()[0];
+                this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
+            }
+
+            resetRadiologist() {
+                this.tRowData = [];
             }
         }
 
