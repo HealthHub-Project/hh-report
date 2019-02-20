@@ -242,7 +242,7 @@
                     <span class="label-top">Mark CVR</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button icon="vaadin:cog" on-tap="openDialog"></paper-icon-button>
+                    <paper-icon-button icon="vaadin:cog" on-tap="openDialog" disabled></paper-icon-button>
                 </div>
             </div>
             <div style="height: calc(100% - 130px);">
@@ -341,9 +341,9 @@
                     </div>
                 </div>
                 <div class="modalBottomContainer">
-                    <paper-button id="" on-tap="handleClick" raised>Save</paper-button>
+                    <paper-button id="saveRadiologist" on-tap="handleClick" raised>Save</paper-button>
                     <paper-button on-tap="closeConfigModal" raised>Close</paper-button>
-                    <paper-button on-tap="resetRadiologist" raised>Reset to default</paper-button>
+                    <paper-button on-tap="resetRadiologists" raised>Reset to default</paper-button>
                 </div>
 
             </div>
@@ -359,7 +359,7 @@
                 </div>
                 <div style="display:flex; flex-direction: column; width: 360px; height: 255px; padding: 0px 30px 5px 30px;">
                     <div style="width: 100%; height: 80px; display: flex; align-items: center">
-                        <paper-input id="filterInput" label="name" on-input="onFilterTextBoxChanged">
+                        <paper-input id="filterInput" label="Search" on-input="onFilterTextBoxChanged">
                             <iron-icon icon="vaadin:search" slot="prefix"></iron-icon>
                         </paper-input>
                     </div>
@@ -438,10 +438,11 @@
                 };
 
                 this.tColumnDefs = [
-                    {headerName: "Role", field: "role", width: 150},
+                    {headerName: "Role", field: "role", width: 70},
+                    {headerName: "LicenseNo", field: "licenseNo", width: 110},
+                    {headerName: "Name", field: "name", width: 80},
+                    {headerName: "EngName", field: "engName", width: 100},
                     {headerName: "Department", field: "department", width: 120},
-                    {headerName: "ID", field: "id", width: 70},
-                    {headerName: "Name", field: "name", width: 100},
                     {headerName: "Position", field: "position", width: 117}
                 ];
 
@@ -460,19 +461,20 @@
                 };
 
                 this.sColumnDefs = [
-                    {headerName: "Department", field: "department", width: 120},
                     {headerName: "LicenseNo", field: "licenseNo", width: 110},
                     {headerName: "Name", field: "name", width: 80},
+                    {headerName: "EngName", field: "engName", width: 100},
+                    {headerName: "Department", field: "department", width: 120},
                     {headerName: "Position", field: "position", width: 110}
                 ];
                 this.sRowData = [
-                    {id: "1234", department: "Neuroradiology", licenseNo: "5678", name: "나동규", position: "resident"},
-                    {id: "2342", department: "Neuroradiology", licenseNo: "5677", name: "김성현", position: "resident"},
-                    {id: "3253", department: "Neuroradiology", licenseNo: "5674", name: "이재희", position: "resident"},
-                    {id: "4231", department: "Neuroradiology", licenseNo: "5671", name: "정주혁", position: "resident"},
-                    {id: "2342", department: "Neuroradiology", licenseNo: "5278", name: "장보현", position: "resident"},
-                    {id: "2341", department: "Neuroradiology", licenseNo: "4231", name: "김민정", position: "resident"},
-                    {id: "3423", department: "Neuroradiology", licenseNo: "1234", name: "이성현", position: "resident"},
+                    // {id: "1234", department: "Neuroradiology", licenseNo: "5678", name: "나동규", position: "resident"},
+                    // {id: "2342", department: "Neuroradiology", licenseNo: "5677", name: "김성현", position: "resident"},
+                    // {id: "3253", department: "Neuroradiology", licenseNo: "5674", name: "이재희", position: "resident"},
+                    // {id: "4231", department: "Neuroradiology", licenseNo: "5671", name: "정주혁", position: "resident"},
+                    // {id: "2342", department: "Neuroradiology", licenseNo: "5278", name: "장보현", position: "resident"},
+                    // {id: "2341", department: "Neuroradiology", licenseNo: "4231", name: "김민정", position: "resident"},
+                    // {id: "3423", department: "Neuroradiology", licenseNo: "1234", name: "이성현", position: "resident"}
                 ];
 
                 this.sGridOptions.onRowDoubleClicked = (e) => {
@@ -511,11 +513,19 @@
                 this.recommendation = "";
             }
 
-            setRadiologist(rows) {
+            getOpinion() {
+                let opinion = new Object();
+                opinion.findings = this.findings;
+                opinion.conclusion = this.conclusion;
+                opinion.recommendation = this.recommendation;
+                return opinion;
+            }
+
+            setRadiologists(rows) {
                 this.tRowData = rows;
             }
 
-            setDoctorList(rows) {
+            setDoctors(rows) {
                 this.sRowData = rows;
             }
 
@@ -537,15 +547,15 @@
                 }
             }
 
-            getRadiologist() {
-                let radiologistList = new Array();
+            getRadiologists() {
+                let radiologistLists = new Array();
                 this.tGridOptions.api.forEachNode((rowNode) => {;
-                    radiologistList.push(rowNode.data)
+                    radiologistLists.push(rowNode.data)
                 });
-                return radiologistList;
+                return radiologistLists;
             }
 
-            resetRadiologist() {
+            resetRadiologists() {
                 this.tRowData = [];
             }
         }
