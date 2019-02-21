@@ -205,12 +205,41 @@
                 color: #fff !important;
             }
 
+            #scpUsersModal {
+                width: 200px;
+                border-radius: 5px;
+                margin: 0;
+
+                border: 2px solid;
+                border-color: #0087cb;
+                color: #0087cb;
+
+                top: 264px;
+
+            }
+
+            paper-listbox {
+                padding: 0px;
+                margin: 0px;
+            }
+
+            paper-item {
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            paper-item:hover {
+                font-weight: bold;
+                background-color: #0087cb;
+                color: #fff;
+            }
+
 
         </style>
         <div class="container">
             <div class="item" style="height: 65px; display: flex; justify-content: space-evenly; align-items: center">
                 <div class="icon-container">
-                    <paper-icon-button id="approve" icon="vaadin:check-square-o" on-click="handleClick"></paper-icon-button>
+                    <paper-icon-button id="approve" icon="vaadin:check-square-o" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Approve/Attest</span>
                 </div>
                 <div class="icon-container">
@@ -379,6 +408,16 @@
             </div>
         </paper-dialog>
 
+        <paper-dialog id="scpUsersModal" no-overlap horizontal-align="left" vertical-align="bottom"
+                      exit-animation="fade-out-animation">
+            <h3>Consult to</h3>
+            <paper-listbox>
+                <template is="dom-repeat" items="[[scpUsers]]">
+                    <paper-item id="{{item.id}}" on-click="consultToBtnClickEvent">{{item.name}}</paper-item>
+                </template>
+            </paper-listbox>
+        </paper-dialog>
+
     </template>
 
     <script>
@@ -487,6 +526,13 @@
                 this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
             }
 
+            consultToBtnClickEvent(e) {
+                let param = new Object();
+                param.userId = e.target.id;
+                param.username = e.target.innerText;
+                this.dispatchEvent(new CustomEvent('consultToBtnClickEvent', {detail: param}));
+            }
+
             clear() {
                 this.initTextArea();
             }
@@ -515,7 +561,7 @@
 
             getOpinion() {
                 let opinion = new Object();
-                opinion.findings = this.findings;
+                opinion.finding = this.findings;
                 opinion.conclusion = this.conclusion;
                 opinion.recommendation = this.recommendation;
                 return opinion;
@@ -558,6 +604,28 @@
             resetRadiologists() {
                 this.tRowData = [];
             }
+
+            enabledApproveBtn() {
+                this.$.approve.disabled = false;
+            }
+
+            disabledApproveBtn() {
+                this.$.approve.disabled = true;
+            }
+
+            setScpUsers(users) {
+                this.scpUsers = users;
+            }
+
+            openScpUsersModal() {
+                this.$.scpUsersModal.positionTarget = this.$.approve;
+                this.$.scpUsersModal.open();
+            }
+
+            closeScpUsersModal() {
+                this.$.scpUsersModal.close();
+            }
+
         }
 
         window.customElements.define(HhReport.is, HhReport);
