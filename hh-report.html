@@ -243,7 +243,7 @@
                     <span class="label-top">Approve/Attest</span>
                 </div>
                 <div class="icon-container">
-                    <paper-icon-button id="save" icon="vaadin:download" on-click="handleClick"></paper-icon-button>
+                    <paper-icon-button id="save" icon="vaadin:download" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Save</span>
                 </div>
                 <div class="icon-container">
@@ -611,6 +611,14 @@
 
             disabledApproveBtn() {
                 this.$.approve.disabled = true;
+            }
+
+            enabledSaveBtn() {
+                this.$.save.disabled = false;
+            }
+
+            disabledSaveBtn() {
+                this.$.save.disabled = true;
             }
 
             setScpUsers(users) {
