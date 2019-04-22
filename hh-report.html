@@ -238,9 +238,14 @@
         </style>
         <div class="container">
             <div class="item" style="height: 65px; display: flex; justify-content: space-evenly; align-items: center">
-                <div class="icon-container">
+                <div class="icon-container" id="approveDiv">
                     <paper-icon-button id="approve" icon="vaadin:check-square-o" on-click="handleClick" disabled></paper-icon-button>
-                    <span class="label-top">Approve/Attest</span>
+                    <!--<span class="label-top" id="approveTitle">Approve/Attest</span>-->
+                    <span class="label-top" >{{approveText}}</span>
+                </div>
+                <div class="icon-container" id="addendumDiv" style="display: none">
+                    <paper-icon-button id="addendum" icon="vaadin:check-square" on-click="handleClick"></paper-icon-button>
+                    <span class="label-top">Addendum</span>
                 </div>
                 <div class="icon-container">
                     <paper-icon-button id="save" icon="vaadin:download" on-click="handleClick" disabled></paper-icon-button>
@@ -459,6 +464,10 @@
                     recommendation: {
                         type: String,
                         value: ""
+                    },
+                    approveText: {
+                        type: String,
+                        value: "Approve/Attest"
                     }
                 };
             }
@@ -611,6 +620,26 @@
 
             disabledApproveBtn() {
                 this.$.approve.disabled = true;
+            }
+
+            invisibleApproveDiv() {
+                this.$.approveDiv.style.display = "none";
+            }
+
+            visibleApproveDiv() {
+                this.$.approveDiv.style.display = "block";
+            }
+
+            invisibleAddendumDiv() {
+                this.$.addendumDiv.style.display = "none";
+            }
+
+            visibleAddendumDiv() {
+                this.$.addendumDiv.style.display = "block";
+            }
+
+            changeApproveText(text) {
+                this.approveText = text;
             }
 
             enabledSaveBtn() {
