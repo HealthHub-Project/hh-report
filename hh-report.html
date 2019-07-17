@@ -468,6 +468,9 @@
                     approveText: {
                         type: String,
                         value: "Approve/Attest"
+                    },
+                    imageReport: {
+                        type: Object
                     }
                 };
             }
@@ -573,6 +576,7 @@
                 opinion.finding = this.findings;
                 opinion.conclusion = this.conclusion;
                 opinion.recommendation = this.recommendation;
+                opinion.imageReport = this.imageReport;
                 return opinion;
             }
 
@@ -661,6 +665,16 @@
 
             closeScpUsersModal() {
                 this.$.scpUsersModal.close();
+            }
+
+            /**
+             * function setStructImage
+             * image Report 구조체 저장
+             *
+             * Create by mjkim on 2019-07-17 오전 9:53
+             **/
+            setStructImage(imageReport) {
+                this.imageReport = JSON.parse(imageReport);
             }
 
         }
