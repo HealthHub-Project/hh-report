@@ -263,10 +263,10 @@
                     <paper-icon-button id="edit" icon="vaadin:edit" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Edit</span>
                 </div>
-                <div class="icon-container">
+                <!--<div class="icon-container">
                     <paper-icon-button id="consultTo" icon="vaadin:comment-ellipsis-o" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Consult to</span>
-                </div>
+                </div>-->
                 <div class="icon-container">
                     <paper-icon-button id="except" icon="vaadin:ban" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Except</span>
@@ -274,6 +274,10 @@
                 <div class="icon-container">
                     <paper-icon-button id="markCVR" icon="vaadin:warning" on-click="handleClick" disabled></paper-icon-button>
                     <span class="label-top">Mark CVR</span>
+                </div>
+                <div class="icon-container">
+                    <paper-icon-button id="print" icon="vaadin:print" on-click="handleClick" disabled></paper-icon-button>
+                    <span class="label-top">Print Opinion</span>
                 </div>
                 <div class="icon-container">
                     <paper-icon-button icon="vaadin:cog" on-tap="openDialog" disabled></paper-icon-button>
@@ -665,6 +669,14 @@
 
             closeScpUsersModal() {
                 this.$.scpUsersModal.close();
+            }
+
+            enabledPrintBtn(){
+                this.$.print.disabled = false;
+            }
+
+            disabledPrintBtn(){
+                this.$.print.disabled = true;
             }
 
             /**
