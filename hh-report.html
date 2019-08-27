@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../vaadin-split-layout/vaadin-split-layout.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../vaadin-icons/vaadin-icons.html">
@@ -41,6 +42,7 @@
                 height: calc(100% - 23px);
                 width: calc(100% - 20px);
                 background-color: rgba(0, 0, 0, 0.10); /* 투명 (opacity: 0) */
+                /*background-color: #2d333f;*/
                 color: #aaaaaa;
                 padding: 10px;
                 border: 0px;
@@ -51,7 +53,7 @@
             }
 
             textarea::placeholder {
-                color: #3c3d47;
+                color: #696969;
             }
 
             paper-icon-button {
@@ -235,6 +237,183 @@
                 color: #fff;
             }
 
+            /*test*/
+            /*.accordion {*/
+            /*!*background-color: #aaaaaa;*!*/
+            /*background-color: rgba(47, 57, 67, 0.89);*/
+            /*color: #444;*/
+            /*cursor: pointer;*/
+            /*padding: 18px;*/
+            /*width: 100%;*/
+            /*border: none;*/
+            /*text-align: left;*/
+            /*outline: none;*/
+            /*font-size: 15px;*/
+            /*transition: 0.4s;*/
+            /*}*/
+
+            /*.active, .accordion:hover {*/
+            /*background-color: rgba(13, 13, 93, 0.74);*/
+            /*}*/
+
+            /*.panel {*/
+            /*padding: 0 18px;*/
+            /*display: none;*/
+            /*background-color: white;*/
+            /*overflow: hidden;*/
+            /*}*/
+
+            .accordion {
+                background-color: #252934;
+                box-shadow: 0px 3px 9px -2px #000000;
+                font-size: 15px;
+                color: #aaaaaa;
+                cursor: pointer;
+                margin: 5px;
+                padding: 0 15px 0 15px;
+                height: 36px;
+                width: 100%;
+                border: none;
+                text-align: left;
+                outline: none;
+                transition: 0.4s;
+            }
+
+            .active, .accordion:hover {
+                background-color: #0087cb;
+                color: #f0f0f0;
+                font-weight: bold;
+            }
+
+            /*.newAddendumTitle {*/
+            /*background-color: #252934;*/
+            /*box-shadow: 0px 3px 9px -2px #000000;*/
+            /*font-size: 15px;*/
+            /*color: #aaaaaa;*/
+            /*cursor: pointer;*/
+            /*margin: 5px;*/
+            /*padding: 0 15px 0 15px;*/
+            /*height: 36px;*/
+            /*width: 100%;*/
+            /*border: none;*/
+            /*text-align: left;*/
+            /*outline: none;*/
+            /*transition: 0.4s;*/
+            /*}*/
+
+            /*.active, .newAddendumTitle:hover{*/
+            /*background-color: #3c3f53;*/
+            /*color: #f0f0f0;*/
+            /*}*/
+
+            .accordion:after {
+                content: '\002B';
+                color: #f0f0f0;
+                font-weight: bold;
+                float: right;
+                margin-left: 5px;
+            }
+
+            .active:after {
+                content: "\2212";
+            }
+
+            .panel {
+                margin: 1px 5px 5px 5px;
+                padding: 0 5px;
+                color: #aaaaaa;
+                display: none;
+                /*background-color: #111c3329;*/
+                background-color: #38528929;
+                box-shadow: 0px 3px 9px -2px #000000;
+                overflow-x: hidden;
+                transition: max-height 0.2s ease-out;
+            }
+            .class-newAddendum{
+                height: 150px;
+                width: 95%;
+                margin: 1px 5px 5px 5px;
+                padding: 0 10px;
+                color: #aaaaaa;
+                display: none;
+                background-color: rgba(0, 0, 0, 0.10);
+                box-shadow: 0px 3px 9px -2px #000000;
+                overflow-x: hidden;
+                overflow-y: auto;
+                transition: max-height 0.2s ease-out;
+            }
+
+            .approve-panel{
+                margin: 1px 5px 5px 5px;
+                padding: 5px;
+                color: #aaaaaa;
+                display: none;
+                background-color: #111c3329;
+                box-shadow: 0px 3px 9px -2px #000000;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+            }
+
+            /*test end*/
+
+            .class-report-approve-title {
+                height: 30px;
+                display:flex;
+                align-items: center;
+                padding-left: 10px;
+                background-color: #252934;
+                font-weight: bold;
+                font-size: 12px;
+                box-shadow: 0px 3px 9px -2px #000000;
+                color: white;
+                font-size: 13px;
+                margin: 5px 0 5px 0;
+            }
+
+            .class-report-approve-title-content {
+                width: 100%;
+                font-size: 13px;
+                font-weight: bold;
+                background-color: rgba(0, 0, 0, 0.10);
+                color: #aaa;
+                border: 0px;
+            }
+
+            .class-report-approve-content{
+                height: 100%;
+            }
+
+            .class-addendum-report-content{
+                height: calc(100% - 130px);
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+
+            .class-addendum-report-content::-webkit-scrollbar-thumb
+            {
+                background-color: #c2c2c2;
+                border-radius: 6px;
+            }
+            .class-addendum-report-content::-webkit-scrollbar
+            {
+                width: 7px;
+                background-color: rgba(0, 0, 0, 0.14);
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+            }
+
+            textarea::-webkit-scrollbar-thumb
+            {
+                background-color: #c2c2c2;
+                border-radius: 6px;
+            }
+            textarea::-webkit-scrollbar
+            {
+                width: 7px;
+                background-color: rgba(0, 0, 0, 0.14);
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+            }
 
         </style>
         <div class="container">
@@ -284,40 +463,100 @@
                     <paper-icon-button icon="vaadin:cog" on-tap="openDialog" disabled></paper-icon-button>
                 </div>
             </div>
-            <div style="height: calc(100% - 130px);">
-                <vaadin-split-layout orientation="vertical" style="height: 100%;" theme="minimal">
-                    <div style="height: 33%; min-height: 72px; overflow: hidden">
-                        <div style="height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
-                            Findings
+            <div class="class-addendum-report-content">
+                <!--<div class="class-report-approve" style="height: calc(100% - 130px); overflow-y: auto">-->
+                <div class="class-report-approve-content" id="approveContent">
+                    <vaadin-split-layout orientation="vertical" style="height: 100%;" theme="minimal">
+                        <div style="height: 33%; min-height: 72px; overflow: hidden">
+                            <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                Findings
+                            </div>
+                            <div style="height: calc(100% - 32px);">
+                                <textarea value="{{findings::input}}" placeholder="Please enter findings">
+                                </textarea>
+                            </div>
                         </div>
-                        <div style="height: calc(100% - 32px);">
-                            <textarea value="{{findings::input}}" placeholder="Please enter findings">
-                            </textarea>
+                        <vaadin-split-layout orientation="vertical" style="height: 67%; min-height: 140px" theme="minimal">
+                            <div style="height: 50%; min-height: 72px; overflow: hidden">
+                                <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                    Conclusion
+                                </div>
+                                <div style="height: calc(100% - 32px);">
+                                    <textarea value="{{conclusion::input}}" placeholder="Please enter conclusion">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div style="height: 50%; min-height: 72px; overflow: hidden">
+                                <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                    Recommendation
+                                </div>
+                                <div style="height: calc(100% - 32px);">
+                                    <textarea value="{{recommendation::input}}" placeholder="Please enter recommendation">
+                                    </textarea>
+                                </div>
 
+                            </div>
+                        </vaadin-split-layout>
+                    </vaadin-split-layout>
+                </div>
+                <!--</div>-->
+
+                <!--Start of test accodian-->
+                <div class ="class-addendumContent" id="addendumContent" style="display: none">
+                    <button class="accordion" id="approveInfo" active>
+                    </button>
+                    <div class="approve-panel" id="approvePanel" style="height: 550px">
+                        <div class="class-report-approve-content">
+                            <vaadin-split-layout orientation="vertical" style="height: 100%;" theme="minimal">
+                                <div style="height: 33%; min-height: 72px; overflow: hidden">
+                                    <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                        Findings
+                                    </div>
+                                    <div style="height: calc(100% - 32px);">
+                                        <textarea value="{{findings}}" readonly>
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <vaadin-split-layout orientation="vertical" style="height: 67%; min-height: 140px" theme="minimal">
+                                    <div style="height: 50%; min-height: 72px; overflow: hidden">
+                                        <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                            Conclusion
+                                        </div>
+                                        <div style="height: calc(100% - 32px);">
+                                            <textarea value="{{conclusion}}" readonly>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <div style="height: 50%; min-height: 72px; overflow: hidden">
+                                        <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
+                                            Recommendation
+                                        </div>
+                                        <div style="height: calc(100% - 32px);">
+                                            <textarea value="{{recommendation}}" readonly>
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </vaadin-split-layout>
+                            </vaadin-split-layout>
                         </div>
                     </div>
-                    <vaadin-split-layout orientation="vertical" style="height: 67%; min-height: 140px" theme="minimal">
-                        <div style="height: 50%; min-height: 72px; overflow: hidden">
-                            <div style="height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
-                                Conclusion
-                            </div>
-                            <div style="height: calc(100% - 32px);">
-                                <textarea value="{{conclusion::input}}" placeholder="Please enter conclusion">
+                    <button class="accordion">New Addendum</button>
+                    <textarea id="newAddendumText" value="{{newAddendum}}" class="class-newAddendum" placeholder="Please Input Addendum">
+                    </textarea>
+                    <!--addendum list-->
+                    <div id="divAddendumList">
+                        <template is="dom-repeat" items="[[addendumList]]" id="addendumRepeat">
+                            <button class="accordion">[[item.title]]</button>
+                            <div class="panel">
+                                <!--<p>[[item.addendum]]</p>-->
+                                <textarea value="[[item.addendum]]" style="background-color: #2b3445" readonly>
                                 </textarea>
                             </div>
-                        </div>
-                        <div style="height: 50%; min-height: 72px; overflow: hidden">
-                            <div style="height: 30px; display:flex; align-items: center; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
-                                Recommendation
-                            </div>
-                            <div style="height: calc(100% - 32px);">
-                                <textarea value="{{recommendation::input}}" placeholder="Please enter recommendation">
-                                </textarea>
-                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!--End of test accodian-->
 
-                        </div>
-                    </vaadin-split-layout>
-                </vaadin-split-layout>
             </div>
             <div class="item" style="height: 65px; display: flex;">
                 <div class="item-container" style="width: calc(100% - 340px); display:flex; align-items: center; padding-left: 10px;">
@@ -427,13 +666,10 @@
                 </template>
             </paper-listbox>
         </paper-dialog>
-
     </template>
-
     <script>
         /**
          * `hh-report`
-         *
          *
          * @customElement
          * @polymer
@@ -446,6 +682,47 @@
 
             ready() {
                 super.ready();
+
+                // console.log("1 ready");
+
+                // this.$.approvePanel.toggleClass('active');
+                // this.addendumList = [
+                //     {title:"나동규", addendum : "test123"},
+                //     {title:"나동규2", addendum : "test123111"},
+                //     {title:"나동규3", addendum : "test123222"},
+                //     {title:"나동규4", addendum : "test123333"},
+                //     {title:"나동규5", addendum : "test123444"}
+                // ];
+
+
+                this.$.addendumContent.addEventListener("click", function(e) {
+                    if(e.path[0].nodeName == "BUTTON"){
+
+                        if(e.target.nextElementSibling.id == "newAddendumText"){
+                            // console.log(e.target.nextElementSibling.value.length);
+                            if(e.target.nextElementSibling.value == "                    "){
+                                e.target.nextElementSibling.value = "";
+                            }
+                            e.target.nextElementSibling.focus();
+                        }
+                        e.target.classList.toggle("active");
+                        if(e.target.nextElementSibling){
+                            var panel = e.target.nextElementSibling;
+                            if (panel.style.display === "block") {
+                                panel.style.display = "none";
+                            } else {
+                                panel.style.display = "block";
+                                // window.scrollTo();
+                                // this.animate(e.target);
+                                window.scroll({
+                                    top: 100,
+                                    left: 100,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    }
+                });
             }
 
             static get properties() {
@@ -470,12 +747,18 @@
                         type: String,
                         value: ""
                     },
+                    newAddendum:{
+                        type:String
+                    },
                     approveText: {
                         type: String,
                         value: "Approve/Attest"
                     },
                     imageReport: {
                         type: Object
+                    },
+                    addendumList : {
+                        type:Object
                     }
                 };
             }
@@ -538,6 +821,19 @@
                 };
             }
 
+
+
+            animate(elem) {
+                var left = 0
+                function frame() {
+                    left++  // update parameters
+                    elem.style.left = left + 'px' // show frame
+                    if (left == 100)  // check finish condition
+                        clearInterval(id)
+                }
+                var id = setInterval(frame, 10) // draw every 10ms
+            }
+
             handleClick(e) {
                 let id = e.target.id;
                 this.dispatchEvent(new CustomEvent('btnClickEvent', {detail: id}));
@@ -574,6 +870,8 @@
                 this.findings = "";
                 this.conclusion = "";
                 this.recommendation = "";
+                this.newAddendum = "";
+                // this.$.newAddendum.value="";
             }
 
             getOpinion() {
@@ -581,6 +879,7 @@
                 opinion.finding = this.findings;
                 opinion.conclusion = this.conclusion;
                 opinion.recommendation = this.recommendation;
+                opinion.addendum = this.$.newAddendumText.value;
                 opinion.imageReport = this.imageReport;
                 return opinion;
             }
@@ -678,6 +977,45 @@
 
             disabledPrintBtn(){
                 this.$.print.disabled = true;
+            }
+
+            disabledAddendumAccordionList(){
+                this.$.divAddendumList.style.display = "none";
+            }
+
+            ableAddendumAccordionList(){
+                this.$.divAddendumList.style.display = "block";
+            }
+
+            setOpinion(opinion){
+                this.$.newAddendumText.value = "";
+                this.findings = opinion.finding;
+                this.conclusion = opinion.conclusion;
+                this.recommendation = opinion.recommendation;
+                this.$.approveInfo.innerHTML = opinion.approver+" Approve at "+opinion.approveDtime;
+                if(opinion.addendumList){
+                    for(let i=0; i<opinion.addendumList.length; i++){
+                        opinion.addendumList[i].title = opinion.addendumList[i].addemdumer + " Addendum at " +opinion.addendumList[i].addendumDtime;
+                    }
+                    this.addendumList = opinion.addendumList;
+                }
+            }
+
+            enableAddendumList(){
+                this.$.approveContent.style.display ="none";
+                this.$.addendumContent.style.display = "block";
+                if(!this.$.approveInfo.classList.value.includes("active")){
+                    let targetElement = this.$.approveInfo;
+                    targetElement.classList.toggle("active");
+                    if(targetElement.nextElementSibling){
+                        targetElement.nextElementSibling.style.display = "block";
+                    }
+                }
+            }
+
+            disableAddendumList(){
+                this.$.addendumContent.style.display ="none";
+                this.$.approveContent.style.display = "block";
             }
 
             /**
