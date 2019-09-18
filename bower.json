@@ -1,7 +1,7 @@
 {
   "name": "hh-report",
   "main": "hh-report.html",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "vaadin-split-layout": "vaadin/vaadin-split-layout#^4.1.0",

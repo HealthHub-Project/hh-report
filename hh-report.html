@@ -331,7 +331,7 @@
             }
             .class-newAddendum{
                 height: 150px;
-                width: 95%;
+                width: 96%;
                 margin: 1px 5px 5px 5px;
                 padding: 0 10px;
                 color: #aaaaaa;
@@ -671,6 +671,9 @@
         /**
          * `hh-report`
          *
+         * @Version 1.0.1
+         * @Date    20190918
+         *
          * @customElement
          * @polymer
          * @demo demo/index.html
@@ -693,7 +696,6 @@
                 //     {title:"나동규4", addendum : "test123333"},
                 //     {title:"나동규5", addendum : "test123444"}
                 // ];
-
 
                 this.$.addendumContent.addEventListener("click", function(e) {
                     if(e.path[0].nodeName == "BUTTON"){
@@ -922,6 +924,14 @@
                 this.tRowData = [];
             }
 
+            enabledClearBtn(){
+                this.$.clear.disabled = false;
+            }
+
+            disabledClearBtn(){
+                this.$.clear.disabled = true;
+            }
+
             enabledApproveBtn() {
                 this.$.approve.disabled = false;
             }
@@ -992,7 +1002,7 @@
                 this.findings = opinion.finding;
                 this.conclusion = opinion.conclusion;
                 this.recommendation = opinion.recommendation;
-                this.$.approveInfo.innerHTML = opinion.approver+" Approve at "+opinion.approveDtime;
+                this.$.approveInfo.innerHTML = opinion.approver+" Approved at "+opinion.approveDtime;
                 if(opinion.addendumList){
                     for(let i=0; i<opinion.addendumList.length; i++){
                         opinion.addendumList[i].title = opinion.addendumList[i].addemdumer + " Addendum at " +opinion.addendumList[i].addendumDtime;
