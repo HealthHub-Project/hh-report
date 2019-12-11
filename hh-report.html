@@ -7,7 +7,9 @@
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../hh-icons/hh-icons.html">
+
 <script src="../ag-grid-enterprise/dist/ag-grid-enterprise.js"></script>
 <link rel="import" href="../ag-grid-polymer/ag-grid-polymer.html">
 <script src="licenseKey.js"></script>
@@ -38,7 +40,7 @@
                 width: 100%;
             }
 
-            textarea {
+            textarea,iron-autogrow-textarea {
                 height: calc(100% - 23px);
                 width: calc(100% - 20px);
                 background-color: rgba(0, 0, 0, 0.10); /* 투명 (opacity: 0) */
@@ -505,36 +507,37 @@
                 <div class ="class-addendumContent" id="addendumContent" style="display: none">
                     <button class="accordion" id="approveInfo" active>
                     </button>
-                    <div class="approve-panel" id="approvePanel" style="height: 550px">
+                    <!--                    <div class="approve-panel" id="approvePanel" style="height: 550px">-->
+                    <div class="approve-panel" id="approvePanel">
                         <div class="class-report-approve-content">
                             <vaadin-split-layout orientation="vertical" style="height: 100%;" theme="minimal">
                                 <div style="height: 33%; min-height: 72px; overflow: hidden">
                                     <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
                                         Findings
                                     </div>
-                                    <div style="height: calc(100% - 32px);">
-                                        <textarea value="{{findings}}" readonly>
-                                        </textarea>
-                                    </div>
+                                    <!--                                    <div style="height: calc(100% - 32px);">-->
+                                    <iron-autogrow-textarea value="{{findings}}" readonly>
+                                    </iron-autogrow-textarea>
+                                    <!--                                    </div>-->
                                 </div>
                                 <vaadin-split-layout orientation="vertical" style="height: 67%; min-height: 140px" theme="minimal">
                                     <div style="height: 50%; min-height: 72px; overflow: hidden">
                                         <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
                                             Conclusion
                                         </div>
-                                        <div style="height: calc(100% - 32px);">
-                                            <textarea value="{{conclusion}}" readonly>
-                                            </textarea>
-                                        </div>
+                                        <!--                                        <div style="height: calc(100% - 32px);">-->
+                                        <iron-autogrow-textarea value="{{conclusion}}" readonly>
+                                        </iron-autogrow-textarea>
+                                        <!--                                        </div>-->
                                     </div>
                                     <div style="height: 50%; min-height: 72px; overflow: hidden">
                                         <div style="height: 30px; display:flex; align-items: center; margin:5px 0 5px 0; padding-left: 10px;background-color: #252934;font-weight: bold;font-size: 12px;box-shadow: 0px 3px 9px -2px #000000; color: #aaaaaa; font-size: 13px;">
                                             Recommendation
                                         </div>
-                                        <div style="height: calc(100% - 32px);">
-                                            <textarea value="{{recommendation}}" readonly>
-                                            </textarea>
-                                        </div>
+                                        <!--                                        <div style="height: calc(100% - 32px);">-->
+                                        <iron-autogrow-textarea value="{{recommendation}}" readonly>
+                                        </iron-autogrow-textarea>
+                                        <!--                                        </div>-->
                                     </div>
                                 </vaadin-split-layout>
                             </vaadin-split-layout>
@@ -549,8 +552,8 @@
                             <button class="accordion">[[item.title]]</button>
                             <div class="panel">
                                 <!--<p>[[item.addendum]]</p>-->
-                                <textarea value="[[item.addendum]]" style="background-color: #2b3445" readonly>
-                                </textarea>
+                                <iron-autogrow-textarea value="[[item.addendum]]" style="background-color: #2b3445" readonly>
+                                </iron-autogrow-textarea>
                             </div>
                         </template>
                     </div>
