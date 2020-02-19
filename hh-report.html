@@ -1038,7 +1038,7 @@
              * Create by mjkim on 2019-07-17 오전 9:53
              **/
             setStructImage(imageReport) {
-                if(imageReport) this.imageReport = imageReport;
+                if(imageReport) this.imageReport = JSON.parse(imageReport);;
             }
 
         }
