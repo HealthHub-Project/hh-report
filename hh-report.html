@@ -1031,6 +1031,10 @@
                 this.$.approveContent.style.display = "block";
             }
 
+            isActiveApproveContent() {
+                return (this.$.approveContent.style.display === "block") ? Boolean(true) : Boolean(false);
+            }
+
             /**
              * function setStructImage
              * image Report 구조체 저장
