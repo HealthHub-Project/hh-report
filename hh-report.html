@@ -1031,6 +1031,10 @@
                 this.$.approveContent.style.display = "block";
             }
 
+            isActiveApproveContent() {
+                return (this.$.approveContent.style.display === "block") ? Boolean(true) : Boolean(false);
+            }
+
             /**
              * function setStructImage
              * image Report 구조체 저장
@@ -1038,7 +1042,7 @@
              * Create by mjkim on 2019-07-17 오전 9:53
              **/
             setStructImage(imageReport) {
-                if(imageReport) this.imageReport = JSON.parse(imageReport);;
+                if(imageReport) this.imageReport = JSON.parse(imageReport);
             }
 
         }
